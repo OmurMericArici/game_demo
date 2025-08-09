@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Art Tileset</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .pixel-art-canvas {
+            image-rendering: pixelated;
+            width: 192px; /* 16px * 12x scale for better visibility */
+            height: 192px; /* 16px * 12x scale for better visibility */
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4">
+    <div class="bg-slate-800 p-8 rounded-xl shadow-lg w-full max-w-4xl">
+        <h1 class="text-3xl font-bold mb-6 text-center text-green-300">16x16 Pixel Art Tileset</h1>
+        <p class="text-slate-400 text-center mb-8">
+            This is a simple tileset with grass, stone, water, and sand. The code below generates and displays the pixel art on canvases.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            <!-- Grass Tile Container -->
+            <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-green-400">Grass</h2>
+                <canvas id="grassCanvas" class="pixel-art-canvas border-4 border-green-500 rounded-md"></canvas>
+            </div>
+
+            <!-- Stone Tile Container -->
+            <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-gray-400">Stone</h2>
+                <canvas id="stoneCanvas" class="pixel-art-canvas border-4 border-gray-500 rounded-md"></canvas>
+            </div>
+
+            <!-- Water Tile Container -->
+            <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-blue-400">Water</h2>
+                <canvas id="waterCanvas" class="pixel-art-canvas border-4 border-blue-500 rounded-md"></canvas>
+            </div>
+
+            <!-- Sand Tile Container -->
+            <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-yellow-400">Sand</h2>
+                <canvas id="sandCanvas" class="pixel-art-canvas border-4 border-yellow-500 rounded-md"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Wait for the window to load before running the script
+        window.onload = function() {
+            // Define the size of the tiles
+            const TILE_SIZE = 16;
+            const PIXEL_SCALE = 1; // We will scale the canvas with CSS, so we draw at 1:1 scale
+
+            // --- Pixel data for each tile (16x16 array of hex colors) ---
+
+            // Grass tile data
+            const grassPixels = [
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E']
+            ];
+
+            // Stone tile data
+            const stonePixels = [
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9']
+            ];
+
+            // Water tile data
+            const waterPixels = [
+                ['#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF'],
+                ['#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF'],
+                ['#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF'],
+                ['#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF'],
+                ['#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF'],
+                ['#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF'],
+                ['#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF'],
+                ['#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF'],
+                ['#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF'],
+                ['#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF'],
+                ['#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF'],
+                ['#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF'],
+                ['#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF'],
+                ['#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF'],
+                ['#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF'],
+                ['#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF']
+            ];
+
+            // Sand tile data
+            const sandPixels = [
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C']
+            ];
+
+            /**
+             * Draws a pixel art tile onto a canvas.
+             * @param {string} canvasId - The ID of the canvas element.
+             * @param {Array<Array<string>>} pixelData - A 2D array of color strings for each pixel.
+             */
+            function drawTile(canvasId, pixelData) {
+                const canvas = document.getElementById(canvasId);
+                if (!canvas) {
+                    console.error(`Canvas with ID '${canvasId}' not found.`);
+                    return;
+                }
+                const ctx = canvas.getContext('2d');
+                canvas.width = TILE_SIZE;
+                canvas.height = TILE_SIZE;
+
+                for (let y = 0; y < TILE_SIZE; y++) {
+                    for (let x = 0; x < TILE_SIZE; x++) {
+                        const color = pixelData[y][x];
+                        ctx.fillStyle = color;
+                        ctx.fillRect(x * PIXEL_SCALE, y * PIXEL_SCALE, PIXEL_SCALE, PIXEL_SCALE);
+                    }
+                }
+            }
+
+            // Draw all the tiles
+            drawTile('grassCanvas', grassPixels);
+            drawTile('stoneCanvas', stonePixels);
+            drawTile('waterCanvas', waterPixels);
+            drawTile('sandCanvas', sandPixels);
+        };
+    </script>
+</body>
+</html>
