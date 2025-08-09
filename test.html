@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Art Tileset</title>
+    <title>Expanded Pixel Art Tileset</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,49 +20,75 @@
     </style>
 </head>
 <body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4">
-    <div class="bg-slate-800 p-8 rounded-xl shadow-lg w-full max-w-4xl">
-        <h1 class="text-3xl font-bold mb-6 text-center text-green-300">16x16 Pixel Art Tileset</h1>
+    <div class="bg-slate-800 p-8 rounded-xl shadow-lg w-full max-w-6xl">
+        <h1 class="text-3xl font-bold mb-6 text-center text-green-300">Expanded 16x16 Pixel Art Tileset</h1>
         <p class="text-slate-400 text-center mb-8">
-            This is a simple tileset with grass, stone, water, and sand. The code below generates and displays the pixel art on canvases.
+            This is an expanded tileset with 12 unique tiles, including variants for grass, stone, and water, as well as new materials like dirt, wood, and snow.
         </p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            <!-- Grass Tile Container -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
+            <!-- Row 1: Original Tiles -->
             <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
                 <h2 class="text-xl font-semibold mb-4 text-green-400">Grass</h2>
                 <canvas id="grassCanvas" class="pixel-art-canvas border-4 border-green-500 rounded-md"></canvas>
             </div>
-
-            <!-- Stone Tile Container -->
             <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
                 <h2 class="text-xl font-semibold mb-4 text-gray-400">Stone</h2>
                 <canvas id="stoneCanvas" class="pixel-art-canvas border-4 border-gray-500 rounded-md"></canvas>
             </div>
-
-            <!-- Water Tile Container -->
             <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
                 <h2 class="text-xl font-semibold mb-4 text-blue-400">Water</h2>
                 <canvas id="waterCanvas" class="pixel-art-canvas border-4 border-blue-500 rounded-md"></canvas>
             </div>
-
-            <!-- Sand Tile Container -->
             <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
                 <h2 class="text-xl font-semibold mb-4 text-yellow-400">Sand</h2>
                 <canvas id="sandCanvas" class="pixel-art-canvas border-4 border-yellow-500 rounded-md"></canvas>
+            </div>
+
+            <!-- Row 2: New Tiles -->
+            <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-green-400">Grass with Flowers</h2>
+                <canvas id="grassFlowerCanvas" class="pixel-art-canvas border-4 border-green-500 rounded-md"></canvas>
+            </div>
+            <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-green-400">Tall Grass</h2>
+                <canvas id="tallGrassCanvas" class="pixel-art-canvas border-4 border-green-500 rounded-md"></canvas>
+            </div>
+            <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-gray-400">Mossy Stone</h2>
+                <canvas id="mossyStoneCanvas" class="pixel-art-canvas border-4 border-gray-500 rounded-md"></canvas>
+            </div>
+            <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-blue-400">Shallow Water</h2>
+                <canvas id="shallowWaterCanvas" class="pixel-art-canvas border-4 border-blue-500 rounded-md"></canvas>
+            </div>
+
+            <!-- Row 3: More New Tiles -->
+            <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-yellow-400">Sand with Rocks</h2>
+                <canvas id="sandRocksCanvas" class="pixel-art-canvas border-4 border-yellow-500 rounded-md"></canvas>
+            </div>
+            <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-amber-600">Dirt</h2>
+                <canvas id="dirtCanvas" class="pixel-art-canvas border-4 border-amber-700 rounded-md"></canvas>
+            </div>
+            <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-lime-800">Wood Path</h2>
+                <canvas id="woodPathCanvas" class="pixel-art-canvas border-4 border-lime-900 rounded-md"></canvas>
+            </div>
+            <div class="flex flex-col items-center p-4 rounded-xl bg-slate-700 shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-slate-300">Snow</h2>
+                <canvas id="snowCanvas" class="pixel-art-canvas border-4 border-slate-400 rounded-md"></canvas>
             </div>
         </div>
     </div>
 
     <script>
-        // Wait for the window to load before running the script
         window.onload = function() {
-            // Define the size of the tiles
             const TILE_SIZE = 16;
-            const PIXEL_SCALE = 1; // We will scale the canvas with CSS, so we draw at 1:1 scale
+            const PIXEL_SCALE = 1;
 
-            // --- Pixel data for each tile (16x16 array of hex colors) ---
-
-            // Grass tile data
+            // --- Original Tiles ---
             const grassPixels = [
                 ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
                 ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
@@ -81,8 +107,6 @@
                 ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
                 ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E']
             ];
-
-            // Stone tile data
             const stonePixels = [
                 ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
                 ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
@@ -101,8 +125,6 @@
                 ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
                 ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9']
             ];
-
-            // Water tile data
             const waterPixels = [
                 ['#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF'],
                 ['#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF'],
@@ -121,8 +143,6 @@
                 ['#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF'],
                 ['#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF', '#66CCFF', '#3399FF']
             ];
-
-            // Sand tile data
             const sandPixels = [
                 ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
                 ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
@@ -140,6 +160,152 @@
                 ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
                 ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
                 ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C']
+            ];
+            
+            // --- New Tiles ---
+            const grassFlowerPixels = [
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#F9E79F', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#D4AC0D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#F9E79F', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#D4AC0D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#F9E79F', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#D4AC0D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E']
+            ];
+            const tallGrassPixels = [
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E'],
+                ['#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D'],
+                ['#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E', '#78C44D', '#5BA83E']
+            ];
+            const mossyStonePixels = [
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#5BA83E', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#5BA83E', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#5BA83E', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#5BA83E', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#5BA83E', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9'],
+                ['#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070'],
+                ['#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9', '#707070', '#A9A9A9']
+            ];
+            const shallowWaterPixels = [
+                ['#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB'],
+                ['#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF'],
+                ['#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB'],
+                ['#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF'],
+                ['#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB'],
+                ['#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF'],
+                ['#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB'],
+                ['#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF'],
+                ['#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB'],
+                ['#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF'],
+                ['#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB'],
+                ['#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF'],
+                ['#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB'],
+                ['#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF'],
+                ['#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB'],
+                ['#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF', '#87CEEB', '#66CCFF']
+            ];
+            const sandRocksPixels = [
+                ['#F0E68C', '#707070', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#707070', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#707070', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#707070', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#707070', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C'],
+                ['#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C'],
+                ['#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C', '#D2B48C', '#F0E68C']
+            ];
+            const dirtPixels = [
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513']
+            ];
+            const woodPathPixels = [
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D'],
+                ['#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513'],
+                ['#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D', '#8B4513', '#A0522D']
+            ];
+            const snowPixels = [
+                ['#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA'],
+                ['#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF'],
+                ['#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA'],
+                ['#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF'],
+                ['#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA'],
+                ['#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF'],
+                ['#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA'],
+                ['#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF'],
+                ['#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA'],
+                ['#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF'],
+                ['#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA'],
+                ['#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF'],
+                ['#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA'],
+                ['#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF'],
+                ['#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA'],
+                ['#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF', '#F5FFFA', '#E0FFFF']
             ];
 
             /**
@@ -171,6 +337,14 @@
             drawTile('stoneCanvas', stonePixels);
             drawTile('waterCanvas', waterPixels);
             drawTile('sandCanvas', sandPixels);
+            drawTile('grassFlowerCanvas', grassFlowerPixels);
+            drawTile('tallGrassCanvas', tallGrassPixels);
+            drawTile('mossyStoneCanvas', mossyStonePixels);
+            drawTile('shallowWaterCanvas', shallowWaterPixels);
+            drawTile('sandRocksCanvas', sandRocksPixels);
+            drawTile('dirtCanvas', dirtPixels);
+            drawTile('woodPathCanvas', woodPathPixels);
+            drawTile('snowCanvas', snowPixels);
         };
     </script>
 </body>
