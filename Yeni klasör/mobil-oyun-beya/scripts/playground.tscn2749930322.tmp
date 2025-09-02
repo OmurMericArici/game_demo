@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://d37clyday8bhe"]
+
+[ext_resource type="Script" uid="uid://cat6hiqaovlow" path="res://scripts/camera_2d.gd" id="1_m8cg0"]
+[ext_resource type="PackedScene" uid="uid://vdni6ewmi7rf" path="res://scripts/virtual_joystick.tscn" id="1_yexxo"]
+[ext_resource type="PackedScene" uid="uid://lm3vglvuekgv" path="res://scripts/character_body_2d.tscn" id="2_mq0a4"]
+[ext_resource type="Texture2D" uid="uid://bguvbqb75uft0" path="res://assets/icon.svg" id="3_m8cg0"]
+
+[node name="Playground" type="Node2D"]
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_mq0a4")]
+position = Vector2(-13, 2)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("1_m8cg0")
+
+[node name="VirtualJoystick" parent="Camera2D" instance=ExtResource("1_yexxo")]
+offset_left = -1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = 1.0
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(-273, 110)
+texture = ExtResource("3_m8cg0")
+
+[node name="Icon2" type="Sprite2D" parent="."]
+position = Vector2(-178, -161)
+texture = ExtResource("3_m8cg0")
+
+[node name="Icon3" type="Sprite2D" parent="."]
+position = Vector2(273, 151)
+texture = ExtResource("3_m8cg0")
