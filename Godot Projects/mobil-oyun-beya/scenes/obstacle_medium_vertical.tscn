@@ -1,15 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://dxyj5k34tsnay"]
 
-[ext_resource type="Texture2D" uid="uid://xs0m081pitmv" path="res://assets/place_holder_48x16.png" id="1_sqlec"]
+[ext_resource type="Texture2D" uid="uid://2ommfmmgoqb" path="res://assets/place_holder_16x48.png" id="1_sqlec"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ymodo"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ymodo"]
 
-[node name="Obstacle Medium Horizontal" type="StaticBody2D"]
+[node name="Obstacle Medium Vertical" type="StaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
 scale = Vector2(19, 6)
-shape = SubResource("WorldBoundaryShape2D_ymodo")
+shape = SubResource("RectangleShape2D_ymodo")
 
-[node name="PlaceHolder16x16" type="Sprite2D" parent="."]
+[node name="PlaceHolder16x48" type="Sprite2D" parent="."]
 scale = Vector2(8, 8)
 texture = ExtResource("1_sqlec")
