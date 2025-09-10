@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://d37clyday8bhe"]
+
+[ext_resource type="PackedScene" uid="uid://lm3vglvuekgv" path="res://scenes/player.tscn" id="1_kddj0"]
+[ext_resource type="Script" uid="uid://cat6hiqaovlow" path="res://scripts/camera.gd" id="2_q8s1k"]
+[ext_resource type="PackedScene" uid="uid://vdni6ewmi7rf" path="res://scenes/virtual_joystick.tscn" id="3_mm0a5"]
+[ext_resource type="PackedScene" uid="uid://cerhckpm2vtv8" path="res://scenes/enemy.tscn" id="4_q8s1k"]
+
+[node name="Playground" type="Node2D"]
+
+[node name="Player" parent="." groups=["player"] instance=ExtResource("1_kddj0")]
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("2_q8s1k")
+target = NodePath("../Player")
+enemy_scene = ExtResource("4_q8s1k")
+
+[node name="VirtualJoystick" parent="Camera2D" instance=ExtResource("3_mm0a5")]
+offset_left = -1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = 1.0
+
+[connection signal="hit_shake" from="Player" to="Camera2D" method="_on_character_body_2d_hit_shake"]
