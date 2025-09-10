@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://4585t8nu3vpb"]
+
+[ext_resource type="Script" uid="uid://cat6hiqaovlow" path="res://scripts/camera.gd" id="1_qqjab"]
+[ext_resource type="PackedScene" uid="uid://cerhckpm2vtv8" path="res://scenes/enemy.tscn" id="2_p6dlx"]
+[ext_resource type="PackedScene" uid="uid://vdni6ewmi7rf" path="res://scenes/virtual_joystick.tscn" id="3_eeger"]
+
+[node name="Camera" type="Camera2D" node_paths=PackedStringArray("target")]
+script = ExtResource("1_qqjab")
+target = NodePath("")
+enemy_scene = ExtResource("2_p6dlx")
+
+[node name="VirtualJoystick" parent="." instance=ExtResource("3_eeger")]
+offset_left = -1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = 1.0

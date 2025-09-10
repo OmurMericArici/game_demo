@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bopm26b16bpgl"]
+
+[ext_resource type="Texture2D" uid="uid://cvd8i6k223vbe" path="res://assets/place_holder_16x16.png" id="1_ghotd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iectb"]
+
+[node name="Obstacle Small" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(6, 6)
+shape = SubResource("RectangleShape2D_iectb")
+
+[node name="PlaceHolder16x16" type="Sprite2D" parent="."]
+scale = Vector2(8, 8)
+texture = ExtResource("1_ghotd")

@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://lm3vglvuekgv"]
+
+[ext_resource type="Script" uid="uid://c1tu7aw2ey047" path="res://scripts/character_body_2d.gd" id="1_5u4nw"]
+[ext_resource type="Script" uid="uid://cpc2lg0ffss1u" path="res://scripts/visual.gd" id="2_lik2q"]
+[ext_resource type="Texture2D" uid="uid://crky5g4ln0r3g" path="res://assets/character_placeholder_16x16.png" id="3_j2i8v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5u4nw"]
+radius = 64.0078
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lik2q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_j2i8v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+collision_mask = 128
+script = ExtResource("1_5u4nw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5u4nw")
+
+[node name="Visual" type="Node2D" parent="."]
+script = ExtResource("2_lik2q")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual"]
+scale = Vector2(8, 8)
+sprite_frames = SubResource("SpriteFrames_lik2q")
